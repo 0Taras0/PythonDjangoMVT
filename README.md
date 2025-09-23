@@ -34,7 +34,9 @@ deactivate
 ```
 cd djangomvt
 
-python manage.py makemigrations
+pip install Pillow
+
+py manage.py makemigrations categories
 
 python manage.py migrate
 ```
@@ -83,4 +85,31 @@ Category.objects.all()
 ## Close Shell
 ```
 exit()
+```
+
+# Clone project
+```
+.venv\Scripts\activate.bat
+
+pip freeze
+
+pip freeze > requirements.txt
+
+git clone https://github.com/0Taras0/PythonDjangoMVT
+cd djangomvt
+py -m venv .venv
+.venv\Scripts\activate.bat
+
+python.exe -m pip install --upgrade pip
+py -m pip install Django
+cd djangomvt
+py manage.py runserver 4892
+```
+
+## Add super user
+```
+py manage.py createsuperuser
+admin
+123456
+py manage.py runserver 4892
 ```
