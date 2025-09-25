@@ -110,6 +110,7 @@ py manage.py runserver 4892
 ```
 py manage.py createsuperuser
 admin
+admin@gmail.com
 123456
 py manage.py runserver 4892
 ```

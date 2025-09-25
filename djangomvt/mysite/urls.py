@@ -27,6 +27,7 @@ urlpatterns = [
     path('', views.homePage, name='home'),
     path('about/', views.about, name='about'),
     path('categories/', include('categories.urls')),
+    path('users/', include('users.urls')),
 ]
 
 urlpatterns += static(settings.IMAGES_URL, document_root=settings.IMAGES_ROOT)
