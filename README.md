@@ -114,3 +114,12 @@ admin@gmail.com
 123456
 py manage.py runserver 4892
 ```
+
+## Add products and images
+```
+py manage.py startapp products
+
+py manage.py makemigrations products
+
+py manage.py migrate
+```
