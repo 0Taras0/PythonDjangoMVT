@@ -2,9 +2,10 @@ from django.shortcuts import render
 
 
 from django.shortcuts import render, redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, LoginForm
 from .utils import compress_image
 from django.contrib import messages
+from django.contrib.auth import login, logout
 
 # Create your views here.
 def register(request):
@@ -24,6 +25,7 @@ def register(request):
                     optimized_image, image_name = compress_image(request.FILES['image'], size=(1200,1200))
                     user.image_large.save(image_name, optimized_image, save=False)
                 user.save()
+                login(request, user)
                 return redirect('categories:show_categories')
             except Exception as e:
                 messages.error(request, f'Помилка при реєстрації: {str(e)}')
@@ -32,4 +34,19 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
- 
+
+def login_view(request):
+    if request.method == "POST":
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("home")
+    else:
+        form = LoginForm()
+    return render(request, "login.html", {"form": form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("users:login")

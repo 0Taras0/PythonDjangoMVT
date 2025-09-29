@@ -127,8 +127,10 @@ STATICFILES_DIRS = [
 ]
 
 IMAGES_URL = '/images/'
+AVATARS_URL = '/avatars/'
 
 IMAGES_ROOT = BASE_DIR / 'images'
+AVATARS_ROOT = BASE_DIR / 'avatars'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
