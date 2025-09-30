@@ -95,6 +95,8 @@ pip freeze
 
 pip freeze > requirements.txt
 
+pip install -r requirements.txt
+ 
 git clone https://github.com/0Taras0/PythonDjangoMVT
 cd djangomvt
 py -m venv .venv

@@ -1,5 +1,5 @@
 from django.db import models
-import slugify
+from slugify import slugify
 from PIL import Image
 from core.models import BaseEntity
 from categories.models import Category
@@ -30,12 +30,11 @@ class Product(BaseEntity):
 
     def __str__(self):
         return f"{self.name} ({self.category.name})"
-    
 
 
 class ProductImage(models.Model):
     product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, related_name="images"
+        Product, on_delete=models.CASCADE, related_name="images", null = True, blank=True
     )
     image = models.ImageField(upload_to="images/")
     priority = models.PositiveIntegerField(default=0, help_text="0 = головне фото")
@@ -45,17 +44,6 @@ class ProductImage(models.Model):
         ordering = ["priority", "created_at"]  # головні фото першими
 
     def save(self, *args, **kwargs):
-        if self.image:
-            img = Image.open(self.image)
-            if img.mode in ("RGBA", "P"):
-                img = img.convert("RGB")
-
-            filename = f"{uuid.uuid4().hex}.webp"
-            buffer = BytesIO()
-            img.save(buffer, format="WEBP")
-            buffer.seek(0)
-            self.image.save(filename, ContentFile(buffer.read()), save=False)
-
         super().save(*args, **kwargs)
 
     def __str__(self):
